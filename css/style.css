@@ -1,0 +1,607 @@
+/* ============================================================
+   Ben Airways — Professional Check-in Stylesheet
+   File: css/style.css  |  Direction: RTL (Hebrew)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+
+/* ── Design Tokens ────────────────────────────────────────── */
+:root {
+  --bg-page:        #eef2f7;
+  --bg-white:       #ffffff;
+  --blue-brand:     #1a4f8a;
+  --blue-mid:       #2c6cb0;
+  --blue-light:     #e8f0fb;
+  --blue-border:    #b6cfe8;
+  --seat-avail:     #d4edda;
+  --seat-avail-brd: #82c99b;
+  --seat-avail-txt: #1e6636;
+  --seat-hover:     #b8dfc6;
+  --seat-selected:  #2c6cb0;
+  --seat-sel-txt:   #ffffff;
+  --input-bg:       #f7fafd;
+  --input-brd:      #c5d8ee;
+  --label-color:    #1a4f8a;
+  --btn-bg:         #1a4f8a;
+  --btn-hover:      #15407a;
+  --text-main:      #1c2a3a;
+  --text-muted:     #5a7a9a;
+  --radius-card:    14px;
+  --radius-input:   8px;
+  --radius-seat:    6px;
+  --shadow-card:    0 4px 20px rgba(26,79,138,0.12), 0 1px 4px rgba(26,79,138,0.07);
+  --transition:     0.2s ease;
+  --font:           'Assistant', 'Arial', sans-serif;
+}
+
+/* ── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--text-main);
+  direction: rtl;
+  background-color: var(--bg-page);
+  min-height: 100vh;
+}
+
+/* ── Page Wrapper ─────────────────────────────────────────── */
+.page-wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+/* ── Site Header ──────────────────────────────────────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  border-bottom: 2px solid var(--blue-border);
+  padding-bottom: 14px;
+}
+
+.header-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--blue-brand);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--blue-brand);
+}
+
+/* ── Content Shell ────────────────────────────────────────── */
+.content-shell {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* ── Shared Panel ─────────────────────────────────────────── */
+.panel {
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 22px 20px;
+}
+
+.panel-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--blue-brand);
+  margin-bottom: 4px;
+}
+
+.panel-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* ============================================================
+   LEFT PANEL — Seat Map
+   ============================================================ */
+.panel-map {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+.cabin-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.cabin-nose {
+  width: 60px;
+  height: 22px;
+  background: var(--blue-brand);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  opacity: 0.18;
+  margin-bottom: 2px;
+}
+
+.cabin-tail {
+  width: 50px;
+  height: 14px;
+  background: var(--blue-brand);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  opacity: 0.12;
+  margin-top: 2px;
+}
+
+/* Row: [row-num] [A] [B] [aisle-gap] [C] [D] */
+.seat-grid {
+  display: grid;
+  grid-template-columns: 26px 46px 46px 30px 46px 46px;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.col-head {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+  padding-bottom: 2px;
+}
+
+.aisle-head { font-size: 0.6rem; color: #b0c4d8; }
+.row-num-head { /* empty corner */ }
+
+.row-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Visual aisle gap */
+.aisle {
+  border-left: 2px dashed #d0dde8;
+  border-right: 2px dashed #d0dde8;
+  height: 100%;
+  min-height: 36px;
+}
+
+/* ── Individual Seat ──────────────────────────────────────── */
+.seat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--seat-avail);
+  border: 1.5px solid var(--seat-avail-brd);
+  border-radius: var(--radius-seat);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background var(--transition), border-color var(--transition),
+              transform var(--transition), box-shadow var(--transition);
+}
+
+/* Hide native radio visually but keep it accessible */
+.seat input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.seat-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--seat-avail-txt);
+  pointer-events: none;
+}
+
+.seat:hover { background: var(--seat-hover); transform: scale(1.06); }
+
+/* CSS auto-highlights when its radio is checked */
+.seat:has(input:checked) {
+  background: var(--seat-selected);
+  border-color: var(--blue-mid);
+  box-shadow: 0 0 0 3px rgba(44,108,176,0.25);
+}
+
+.seat:has(input:checked) .seat-label { color: var(--seat-sel-txt); }
+
+/* ── JS Utility: .active-seat ─────────────────────────────── */
+/* JS can apply this class via classList for the selected seat  */
+.active-seat {
+  background: var(--seat-selected) !important;
+  border-color: var(--blue-mid) !important;
+  box-shadow: 0 0 0 3px rgba(44,108,176,0.25) !important;
+}
+.active-seat .seat-label { color: var(--seat-sel-txt) !important; }
+
+/* ── JS Utility: .taken-seat ─────────────────────────────────
+   Applied by JS when a seat is already in the takenSeats array.
+   Makes it visually locked and un-clickable.
+   JS usage: seatLabel.classList.add('taken-seat')
+   ─────────────────────────────────────────────────────────── */
+.taken-seat {
+  background: #f5c6c6 !important;        /* muted red          */
+  border-color: #d9534f !important;
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;       /* prevents clicking  */
+}
+.taken-seat .seat-label {
+  color: #8b2020 !important;
+}
+
+/* ── Seat Legend ──────────────────────────────────────────── */
+.seat-legend {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 14px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  border: 1.5px solid transparent;
+}
+
+.legend-swatch.available { background: var(--seat-avail); border-color: var(--seat-avail-brd); }
+.legend-swatch.selected  { background: var(--seat-selected); border-color: var(--blue-mid); }
+.legend-swatch.taken     { background: #f5c6c6; border-color: #d9534f; opacity: 0.7; }
+
+/* ============================================================
+   RIGHT PANEL — Form
+   ============================================================ */
+.panel-form { flex: 1; }
+
+.form-row { margin-bottom: 18px; }
+
+.field-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--label-color);
+  margin-bottom: 7px;
+}
+
+/* Text Input */
+.text-input {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid var(--input-brd);
+  border-radius: var(--radius-input);
+  font-family: var(--font);
+  font-size: 0.92rem;
+  color: var(--text-main);
+  background: var(--input-bg);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.text-input::placeholder { color: #a0b8cc; font-size: 0.88rem; }
+
+.text-input:focus {
+  border-color: var(--blue-mid);
+  box-shadow: 0 0 0 3px rgba(44,108,176,0.14);
+  background: var(--bg-white);
+}
+
+/* Select Dropdown */
+.select-input {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid var(--input-brd);
+  border-radius: var(--radius-input);
+  font-family: var(--font);
+  font-size: 0.92rem;
+  color: var(--text-main);
+  background: var(--input-bg);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='%235a7a9a' d='M6 7L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+  transition: border-color var(--transition);
+}
+
+.select-input:focus {
+  border-color: var(--blue-mid);
+  box-shadow: 0 0 0 3px rgba(44,108,176,0.14);
+}
+
+/* Checkbox Group */
+.check-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.check-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  border: 1.5px solid var(--input-brd);
+  border-radius: var(--radius-input);
+  background: var(--input-bg);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.check-card:hover { border-color: var(--blue-mid); background: var(--blue-light); }
+
+.check-card input[type="checkbox"] {
+  accent-color: var(--blue-mid);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── JS Utility: .amenity-active ──────────────────────────── */
+/* JS calls: labelEl.classList.toggle('amenity-active')        */
+.amenity-active {
+  border-color: var(--blue-mid) !important;
+  background: var(--blue-light) !important;
+  box-shadow: 0 0 0 2px rgba(44,108,176,0.18);
+}
+
+/* Submit / Summary Button */
+.submit-row { margin-bottom: 0; margin-top: 22px; }
+
+/* INITIAL STATE: disabled + opacity 0.5 + not-allowed cursor  */
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--btn-bg);
+  color: #ffffff;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 8px;
+  cursor: not-allowed;
+  opacity: 0.5;
+  transition: opacity var(--transition), background var(--transition), transform var(--transition);
+}
+
+.submit-btn:not([disabled]) {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.submit-btn:not([disabled]):hover { background: var(--btn-hover); transform: translateY(-1px); }
+.submit-btn:not([disabled]):active { transform: translateY(0); }
+
+/* ============================================================
+   BOARDING PASS CONTAINER
+   ============================================================ */
+#boardingPassContainer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease, margin-top 0.3s ease;
+}
+
+/* ── JS Utility: .visible-pass ───────────────────────────────
+   JS calls: boardingPassContainer.classList.add('visible-pass')
+   ─────────────────────────────────────────────────────────── */
+.visible-pass {
+  max-height: 500px !important;
+  opacity: 1 !important;
+  margin-top: 20px !important;
+}
+
+/* ── JS Utility: .boarding-card ──────────────────────────────
+   JS injects a <div class="boarding-card"> inside the container.
+   Styles the summary card and the final boarding pass.
+   ─────────────────────────────────────────────────────────── */
+.boarding-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid var(--blue-brand);
+  padding: 22px 24px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.boarding-card h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--blue-brand);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--blue-border);
+}
+
+.boarding-card .bp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.boarding-card .bp-key {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.boarding-card .bp-value {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* The final "Issue Boarding Pass" button inside the card */
+.issue-btn {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px 20px;
+  background: #1e6636;     /* green — distinct from the blue summary btn */
+  color: #ffffff;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.issue-btn:hover  { background: #185229; transform: translateY(-1px); }
+.issue-btn:active { transform: translateY(0); }
+
+.form-error {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #b00020;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .content-shell {
+        flex-direction: column;
+    }
+
+    .panel {
+        width: 100%;
+    }
+
+    .text-input,
+    .select-input,
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+/* ── Interactive Images Section ──────────────────────────── */
+.interactive-images-container {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.cropped-img-container {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  transition: opacity var(--transition), border-color var(--transition), box-shadow var(--transition);
+  background-color: #000;
+}
+
+.cropped-img-container img {
+  width: 140px;
+  height: 140px;
+  position: absolute;
+  pointer-events: none;
+}
+
+.dimmed-img {
+  opacity: 0.5;
+}
+
+.highlighted-img {
+  opacity: 1 !important;
+  border-color: var(--blue-mid) !important;
+  box-shadow: 0 0 0 3px rgba(44,108,176,0.25) !important;
+}
+
+/* ============================================================
+   Feature: Pet in Cabin — חדש
+   ============================================================ */
+
+/* קופסת המשקל — מוסתרת כברירת מחדל, מוצגת ע"י JS */
+.pet-weight-section {
+  display: none;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: #f7fafd;
+  border: 1.5px solid var(--blue-border);
+  border-radius: var(--radius-input);
+}
+
+/* JS adds this class to show the section */
+.pet-weight-section.visible {
+  display: block;
+}
+
+/* הודעת שגיאה — משקל גבוה מדי */
+.pet-error {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #fdf0f0;
+  border: 1px solid #f5c6c6;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #c0392b;
+}
+
+/* הערת הגבלת מושב — כחולה מידעית */
+.pet-note {
+  margin-top: 6px;
+  padding: 7px 12px;
+  background: var(--blue-light);
+  border: 1px solid var(--blue-border);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--blue-brand);
+}
+
+/* ── JS Utility: .pet-restricted ─────────────────────────────
+   JS adds this to seats that are off-limits when a pet is aboard.
+   Visual: grayed out, unclickable.
+   JS usage: seatLabel.classList.add('pet-restricted')
+   ─────────────────────────────────────────────────────────── */
+.pet-restricted {
+  background: #e8e8e8 !important;
+  border-color: #bbb !important;
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+.pet-restricted .seat-label {
+  color: #888 !important;
+}

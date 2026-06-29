@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>צ'ק-אין בן איירווייז</title>
+
+  <!-- Clean Hebrew-friendly font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Brand Header -->
+    <header class="site-header">
+      <span class="header-logo">BA</span>
+      <h1 class="header-title">צ'ק-אין בן איירווייז</h1>
+    </header>
+
+    <!-- Split Screen -->
+    <div class="content-shell">
+
+      <!-- ======================================================
+           LEFT — Seat Map (מפת הושבה)
+           ====================================================== -->
+      <section class="panel panel-map" aria-label="מפת הושבה">
+
+        <h2 class="panel-title">מפת הושבה</h2>
+        <p class="panel-sub">בחר מושב על ידי לחיצה</p>
+
+        <div class="cabin-wrap">
+
+          <!-- Nose -->
+          <div class="cabin-nose" aria-hidden="true"></div>
+
+          <!-- Column Headers -->
+          <div class="seat-grid">
+            <div class="col-head row-num-head"></div>
+            <div class="col-head">A</div>
+            <div class="col-head">B</div>
+            <div class="col-head aisle-head">מעבר</div>
+            <div class="col-head">C</div>
+            <div class="col-head">D</div>
+          </div>
+
+          <!--
+            Each seat = a <label> wrapping a hidden <input type="radio">.
+            CSS :has(input:checked) highlights the selected seat.
+            JS adds class 'taken-seat' to lock booked seats.
+          -->
+
+          <!-- Row 1 -->
+          <div class="seat-grid" id="row-1">
+            <div class="row-num">1</div>
+            <label class="seat" for="seat-1A" title="מושב 1A">
+              <input type="radio" id="seat-1A" name="seatGroup" value="1A" onchange="checkFormValidity()" />
+              <span class="seat-label">1A</span>
+            </label>
+            <label class="seat" for="seat-1B" title="מושב 1B">
+              <input type="radio" id="seat-1B" name="seatGroup" value="1B" onchange="checkFormValidity()" />
+              <span class="seat-label">1B</span>
+            </label>
+            <div class="aisle" aria-hidden="true"></div>
+            <label class="seat" for="seat-1C" title="מושב 1C">
+              <input type="radio" id="seat-1C" name="seatGroup" value="1C" onchange="checkFormValidity()" />
+              <span class="seat-label">1C</span>
+            </label>
+            <label class="seat" for="seat-1D" title="מושב 1D">
+              <input type="radio" id="seat-1D" name="seatGroup" value="1D" onchange="checkFormValidity()" />
+              <span class="seat-label">1D</span>
+            </label>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="seat-grid" id="row-2">
+            <div class="row-num">2</div>
+            <label class="seat" for="seat-2A" title="מושב 2A">
+              <input type="radio" id="seat-2A" name="seatGroup" value="2A" onchange="checkFormValidity()" />
+              <span class="seat-label">2A</span>
+            </label>
+            <label class="seat" for="seat-2B" title="מושב 2B">
+              <input type="radio" id="seat-2B" name="seatGroup" value="2B" onchange="checkFormValidity()" />
+              <span class="seat-label">2B</span>
+            </label>
+            <div class="aisle" aria-hidden="true"></div>
+            <label class="seat" for="seat-2C" title="מושב 2C">
+              <input type="radio" id="seat-2C" name="seatGroup" value="2C" onchange="checkFormValidity()" />
+              <span class="seat-label">2C</span>
+            </label>
+            <label class="seat" for="seat-2D" title="מושב 2D">
+              <input type="radio" id="seat-2D" name="seatGroup" value="2D" onchange="checkFormValidity()" />
+              <span class="seat-label">2D</span>
+            </label>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="seat-grid" id="row-3">
+            <div class="row-num">3</div>
+            <label class="seat" for="seat-3A" title="מושב 3A">
+              <input type="radio" id="seat-3A" name="seatGroup" value="3A" onchange="checkFormValidity()" />
+              <span class="seat-label">3A</span>
+            </label>
+            <label class="seat" for="seat-3B" title="מושב 3B">
+              <input type="radio" id="seat-3B" name="seatGroup" value="3B" onchange="checkFormValidity()" />
+              <span class="seat-label">3B</span>
+            </label>
+            <div class="aisle" aria-hidden="true"></div>
+            <label class="seat" for="seat-3C" title="מושב 3C">
+              <input type="radio" id="seat-3C" name="seatGroup" value="3C" onchange="checkFormValidity()" />
+              <span class="seat-label">3C</span>
+            </label>
+            <label class="seat" for="seat-3D" title="מושב 3D">
+              <input type="radio" id="seat-3D" name="seatGroup" value="3D" onchange="checkFormValidity()" />
+              <span class="seat-label">3D</span>
+            </label>
+          </div>
+
+          <!-- Row 4 -->
+          <div class="seat-grid" id="row-4">
+            <div class="row-num">4</div>
+            <label class="seat" for="seat-4A" title="מושב 4A">
+              <input type="radio" id="seat-4A" name="seatGroup" value="4A" onchange="checkFormValidity()" />
+              <span class="seat-label">4A</span>
+            </label>
+            <label class="seat" for="seat-4B" title="מושב 4B">
+              <input type="radio" id="seat-4B" name="seatGroup" value="4B" onchange="checkFormValidity()" />
+              <span class="seat-label">4B</span>
+            </label>
+            <div class="aisle" aria-hidden="true"></div>
+            <label class="seat" for="seat-4C" title="מושב 4C">
+              <input type="radio" id="seat-4C" name="seatGroup" value="4C" onchange="checkFormValidity()" />
+              <span class="seat-label">4C</span>
+            </label>
+            <label class="seat" for="seat-4D" title="מושב 4D">
+              <input type="radio" id="seat-4D" name="seatGroup" value="4D" onchange="checkFormValidity()" />
+              <span class="seat-label">4D</span>
+            </label>
+          </div>
+
+          <!-- Row 5 -->
+          <div class="seat-grid" id="row-5">
+            <div class="row-num">5</div>
+            <label class="seat" for="seat-5A" title="מושב 5A">
+              <input type="radio" id="seat-5A" name="seatGroup" value="5A" onchange="checkFormValidity()" />
+              <span class="seat-label">5A</span>
+            </label>
+            <label class="seat" for="seat-5B" title="מושב 5B">
+              <input type="radio" id="seat-5B" name="seatGroup" value="5B" onchange="checkFormValidity()" />
+              <span class="seat-label">5B</span>
+            </label>
+            <div class="aisle" aria-hidden="true"></div>
+            <label class="seat" for="seat-5C" title="מושב 5C">
+              <input type="radio" id="seat-5C" name="seatGroup" value="5C" onchange="checkFormValidity()" />
+              <span class="seat-label">5C</span>
+            </label>
+            <label class="seat" for="seat-5D" title="מושב 5D">
+              <input type="radio" id="seat-5D" name="seatGroup" value="5D" onchange="checkFormValidity()" />
+              <span class="seat-label">5D</span>
+            </label>
+          </div>
+
+          <!-- Tail -->
+          <div class="cabin-tail" aria-hidden="true"></div>
+
+        </div><!-- /.cabin-wrap -->
+
+        <!-- Legend -->
+        <div class="seat-legend">
+          <span class="legend-swatch available"></span><span>פנוי</span>
+          <span class="legend-swatch selected"></span><span>נבחר</span>
+          <span class="legend-swatch taken"></span><span>תפוס</span>
+        </div>
+
+        <!-- תמונת מושב (חלון או מעבר) - מופיעה ליד מפת הישיבה -->
+        <div class="seat-visual-box" style="margin-top: 15px; display: flex; justify-content: center;">
+          <div id="seatImageContainer" class="cropped-img-container" style="display: none; margin: 0;">
+            <img id="seatImage" src="images/services.jpg" alt="מושב" />
+          </div>
+        </div>
+
+      </section><!-- /.panel-map -->
+
+
+      <!-- ======================================================
+           RIGHT — Check-in Form
+           ====================================================== -->
+      <section class="panel panel-form" aria-label="טופס צ'ק-אין">
+
+        <h2 class="panel-title">פרטי נוסע</h2>
+
+        <form id="checkinForm" novalidate>
+
+          <!-- 1. Full Name -->
+          <div class="form-row">
+            <label class="field-label" for="passengerName">שם מלא</label>
+            <input type="text" id="passengerName" name="passengerName" class="text-input" placeholder="לדוגמה: בן כהן"
+              autocomplete="off" oninput="checkFormValidity()" />
+          </div>
+
+          <!-- 2. Meal Selection -->
+          <div class="form-row">
+            <label class="field-label" for="mealSelect">בחירת ארוחה</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <select id="mealSelect" name="mealSelect" class="select-input" onchange="checkFormValidity()"
+                style="flex: 1;">
+                <option value="" disabled selected>-- בחר ארוחה --</option>
+                <option value="fish">דגים</option>
+                <option value="meat">בשר</option>
+                <option value="chicken">עוף</option>
+                <option value="vegetarian">צמחוני</option>
+                <option value="vegan">טבעוני</option>
+              </select>
+              <!-- תמונת ארוחה אינטראקטיבית -->
+              <div id="mealImageContainer" class="cropped-img-container dimmed-img" style="flex-shrink: 0; margin: 0;">
+                <img id="mealImage" src="images/services.jpg" style="top: -70px; left: 0px;" alt="ארוחה" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Flight Amenities -->
+          <div class="form-row">
+            <p class="field-label">ציוד טיסה</p>
+            <div class="check-group">
+
+              <label class="check-card" id="label-blanket" for="blanket">
+                <input type="checkbox" id="blanket" name="amenities" value="שמיכה"
+                  onchange="handleAmenity('label-blanket')" />
+                <span class="check-text">שמיכה</span>
+              </label>
+
+              <label class="check-card" id="label-pillow" for="pillow">
+                <input type="checkbox" id="pillow" name="amenities" value="כרית"
+                  onchange="handleAmenity('label-pillow')" />
+                <span class="check-text">כרית</span>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- 4. Pet in Cabin (הטסת בעלי חיים) -->
+          <div class="form-row">
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+              <label class="check-card" id="label-pet" for="petCabin" style="flex: 1; margin: 0;">
+                <input type="checkbox" id="petCabin" name="petCabin" value="petCabin" onchange="handlePetChange()" />
+                <span class="check-text">הטסת כלב/חתול</span>
+              </label>
+              <!-- תמונת שירות בעלי חיים -->
+              <div id="petImageContainer" class="cropped-img-container dimmed-img" style="flex-shrink: 0; margin: 0;">
+                <img id="petImage" src="images/services.jpg" style="top: -70px; left: -70px;" alt="בעלי חיים" />
+              </div>
+            </div>
+
+            <!-- משקל בעל החיים — מוצג רק כשהצ'קבוקס מסומן -->
+            <div id="petWeightSection" class="pet-weight-section">
+              <label class="field-label" for="petWeight">משקל בעל החיים בקילוגרמים</label>
+              <input type="number" id="petWeight" name="petWeight" class="text-input" min="1" placeholder="לדוגמה 5"
+                oninput="checkFormValidity()" />
+              <!-- שגיאת משקל — מוצגת ע"י JS -->
+              <p id="petWeightError" class="pet-error" style="display:none;">
+                לא ניתן להטיס בעל חיים מעל 9 קילו בקבינה
+              </p>
+              <!-- הודעת הגבלת מושב — מוצגת ע"י JS -->
+              <p id="petSeatNote" class="pet-note" style="display:none;">
+                נוסעים עם בעלי חיים: מושבים מותרים — 1A ו-1B בלבד
+              </p>
+            </div>
+          </div>
+
+          <!-- 5. Duty Free (מוצרי דיוטי פרי) -->
+          <div class="form-row">
+            <p class="field-label">מוצרי דיוטי פרי</p>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <div class="check-group" style="flex: 1;">
+                <label class="check-card" id="label-chocolates" for="chocolates">
+                  <input type="checkbox" id="chocolates" name="dutyFree" value="שוקולדים"
+                    onchange="handleAmenity('label-chocolates')" />
+                  <span class="check-text">שוקולדים</span>
+                </label>
+
+                <label class="check-card" id="label-perfumes" for="perfumes">
+                  <input type="checkbox" id="perfumes" name="dutyFree" value="בשמים"
+                    onchange="handleAmenity('label-perfumes')" />
+                  <span class="check-text">בשמים</span>
+                </label>
+
+                <label class="check-card" id="label-alcohol" for="alcohol">
+                  <input type="checkbox" id="alcohol" name="dutyFree" value="אלכוהול"
+                    onchange="handleAmenity('label-alcohol')" />
+                  <span class="check-text">אלכוהול</span>
+                </label>
+              </div>
+              <!-- תמונת דיוטי פרי (שקית קניות דיוטי פרי) -->
+              <div id="dutyFreeImageContainer" class="cropped-img-container dimmed-img"
+                style="flex-shrink: 0; margin: 0;">
+                <img id="dutyFreeImage" src="images/duty_free.png" style="width: 100%; height: 100%; top: 0; left: 0;"
+                  alt="דיוטי פרי" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Summary Button -->
+          <div class="form-row submit-row">
+            <p id="formError" class="form-error" aria-live="polite">
+              כדי להמשיך יש למלא שם מלא, לבחור ארוחה ולבחור מושב פנוי. אם בחרת בהטסת בעל חיים, יש להזין משקל תקין ולבחור
+              1A או 1B.
+            </p>
+            <button type="button" id="summaryBtn" class="submit-btn" onclick="showSummary()" disabled>
+              לסיכום הצ'ק-אין
+            </button>
+          </div>
+
+        </form><!-- /#checkinForm -->
+
+      </section><!-- /.panel-form -->
+
+    </div><!-- /.content-shell -->
+
+    <!-- ============================================================
+         BOARDING PASS CONTAINER
+         Empty at load. JS injects the summary card + issue button.
+         JS adds class 'visible-pass' to animate it into view.
+         ============================================================ -->
+    <div id="boardingPassContainer"></div>
+
+  </div><!-- /.page-wrapper -->
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
